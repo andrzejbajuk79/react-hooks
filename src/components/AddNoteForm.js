@@ -1,30 +1,33 @@
-import React, { useState,useContext } from 'react'
+import React, { useState, useContext } from 'react';
 
-const AddNoteForm = ({ dispatch }) => {
-    const [title, setTitle] = useState('')
-    const [body, setBody] = useState('')
+import NotesContext from '../context/notes-context';
 
-    const addNote = (e) => {
-        e.preventDefault()
-        dispatch({
-            type: 'ADD_NOTE',
-            title,
-            body
-        })
-        setTitle('')
-        setBody('')
-    }
+const AddNoteForm = () => {
+	const { dispatch } = useContext(NotesContext);
+	const [title, setTitle] = useState('');
+	const [body, setBody] = useState('');
 
-    return (
-        <div>
-            <p>Add note</p>
-            <form onSubmit={addNote}>
-                <input value={title} onChange={(e) => setTitle(e.target.value)} />
-                <textarea value={body} onChange={(e) => setBody(e.target.value)}></textarea>
-                <button>add note</button>
-            </form>
-        </div>
-    )
-}
+	const addNote = e => {
+		e.preventDefault();
+		dispatch({
+			type: 'ADD_NOTE',
+			title,
+			body
+		});
+		setTitle('');
+		setBody('');
+	};
 
-export { AddNoteForm as default }
+	return (
+		<div>
+			<p>Add note</p>
+			<form onSubmit={addNote}>
+				<input value={title} onChange={e => setTitle(e.target.value)} />
+				<textarea value={body} onChange={e => setBody(e.target.value)}></textarea>
+				<button>add note</button>
+			</form>
+		</div>
+	);
+};
+
+export { AddNoteForm as default };
